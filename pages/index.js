@@ -6,7 +6,7 @@ export default function Home() {
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
 
-  const signUp = (event) => {
+  const signUp = async (event) => {
     event.preventDefault();
     const user = {
       firstName: firstNameRef.current.value,
@@ -16,7 +16,16 @@ export default function Home() {
       confirmPassword: confirmPasswordRef.current.value,
     };
     console.log(user);
+
+    await fetch('/api/signup', {
+      method: 'POST',
+      body: JSON.stringify(user),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   };
+
   return (
     <section>
       <h1>Sign Up</h1>
